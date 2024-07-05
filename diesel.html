@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diesel</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Alice Blue */
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #000080; /* Navy Blue */
+}
+
+section {
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+input[type="number"] {
+    width: 80px;
+}
+
+.total {
+    font-weight: bold;
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #000080; /* Navy Blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4169e1; /* Royal Blue */
+}
+</style>
+</head>
+<body>
+  <section>
+    <h1>DIESEL DIP</h1>
+    
+    <ul>
+      <li>14KL TANK :-</li>
+    </ul>
+    <label for="firstInput">Values:</label>
+    <input type="number" id="firstInput" onchange="calculateTotal()">
+    +
+    <input type="number" id="secondInput" onchange="calculateTotal()">
+    <p id="result"></p>
+  </section>
+  
+  <section>
+    <ul>
+      <li>22KL TANK :-</li>
+    </ul>
+    <label for="thirdInput">Values:</label>
+    <input type="number" id="thirdInput" onchange="calculateTotal()">
+    +
+    <input type="number" id="fourthInput" onchange="calculateTotal()">
+    <p id="result2"></p>
+  </section>
+  
+  <section>
+    <h2>Total Stock</h2>
+    <p id="totalStock" class="total"></p>
+  </section>
+  <button onclick="window.location.href='Dip calculator.html'">Back to DIP CALCULATOR</button>
+
+<script>
+const DIESEL_VALUES_14KL = [0,10,28,51,99,110,145,182,222,264,310,357,406,
+457,510,564,621,678,738,798,861,926,990,1056,1124,1193,1262,1334,1406,1479,1554,1629,1706,
+1783,1860,1940,2023,2101,2183,2265,2347,
+2432,2516,2601,2688,2774,2862,2950,3038,
+3127,3218,3308,3399,3490,3582,3674,3766,
+3861,3958,4048,4143,4238,4333,4430,4526,
+4622,4719,4816,4914,5012,5110,5209,5307,
+5406,5504,5604,5703,5803,5903,6003,6103,
+6204,6304,6404,6505,6606,6707,6807,6909,
+7009,7111,7211,7313,7413,7515,7615,7717,7817,
+7918,8019,8120,8220,8320,8415,8521,8621,
+8721,8821,8920,9019,9119,9217,9315,9414,9514,
+9610,9708,9805,9902,9998,10091,10190,
+10285,10380,10475,10568,10662,10750,10851,
+10941,11033,11124,11215,11305,11396,11485,
+11573,11661,11748,11834,11920,12006,12090,
+12175,12257,12339,12421,12502,12592,12667,
+12758]; 
+const DIESEL_VALUES_22KL = [0,11.77,33.25,61.01,93.8,130.91,171.85,216.27,
+263.87,314.43,367.76,423.7,482.1,542.85,
+605.84,670.96,738.13,807.27,878.3,951.15,
+1025.77,1102.09,1180.06,1259.63,1340.75,
+1423.36,1507.44,1592.93,1679.81,1768.02,
+1857.54,1948.33,2040.36,2133.6,2228.01,
+2323.58,2420.26,2518.04,2616.88,2716.77,
+2817.67,2919.57,3022.44,3126.25,3230.99,
+3336.64,3443.17,3550.57,3658.8,3767.87,
+3877.74,3988.4,4099.82,4212,4324.92,4438.55,
+4552.88,4667.9,4783.58,4899.92,5016.9,
+5134.49,5252.7,5371.49,5490.87,5610.81,
+5731.29,5852.31,5973.86,6095.91,6218.45,
+6341.48,6464.97,6588.92,6713.31,6838.13,
+6963.37,7089.01,7215.04,7341.46,7468.24,
+7595.37,7722.86,7850.67,7978.8,8107.24,
+8235.98,8365,8494.3,8623.86,8753.68,8883.73,
+9014.02,9144.52,9275.23,
+9406.13,9537.23,9668.49,9799.92,9931.51,
+10063.23,10195.09,10327.07,10459.16,
+10591.35,10723.63,10855.98,10988.41,11120.89,
+11253.42,11385.99,11518.59,11651.2,11783.81,
+11916.42,12049.01,12181.58,12314.11,12446.59,
+12579.02,12711.38,12843.66,12975.85,13107.94,
+13239.91,13371.77,13503.5,13635.08,13766.51,
+13897.78,14028.87,14159.78,14290.49,14420.99,
+14551.27,14681.33,14811.14,14940.7,15070,
+15199.02,15327.76,15456.2,15584.34,15712.15,
+15839.63,15966.77,16093.55,16219.96,16345.99,
+16471.63,16596.87,16721.69,16846.08,16970.03,
+17093.53,17216.55,17339.1,17461.15,17582.69,
+17703.71,17824.2,17944.14,18063.51,18182.31,
+18300.51,18418.11,18535.09,18651.42,18767.11,
+18882.13,18996.46,19110.09,19223,19335.18,
+19446.61,19557.27,19667.14,19776.2,19884.44,
+19991.83,20098.36,20204.01,20308.75, 20412.57,20515.44,20617.33,20718.24,20818.12,
+20916.97,21014.74,21111.43,21206.99,21301.41,
+21394.64,21486.67,21577.46,21666.98,21755.2,
+21842.07,21927.56,22011.64,22094.26,22175.37,
+22254.94,22332.91,22409.23,22483.85,
+22556.71,22627.74,22696.88,22764.05,22829.17,
+22892.15,22952.9,23011.31,23067.25,23120.58,
+23171.14,23218.74,23263.15,23304.09,23341.21,
+23374,23401.75,23423.23,23435
+]; 
+
+function calculateTotal() {
+  var firstInputValue = parseFloat(document.getElementById("firstInput").value || 0);
+  var secondInputValue = parseFloat(document.getElementById("secondInput").value || 0);
+  var thirdInputValue = parseFloat(document.getElementById("thirdInput").value || 0);
+  var fourthInputValue = parseFloat(document.getElementById("fourthInput").value || 0);
+  
+  var total1 = calculate(firstInputValue, secondInputValue, DIESEL_VALUES_14KL);
+  var total2 = calculate(thirdInputValue, fourthInputValue, DIESEL_VALUES_22KL);
+
+  document.getElementById("result").innerHTML = "Total 1: " + round(total1, 2);
+  document.getElementById("result2").innerHTML = "Total 2: " + round(total2, 2);
+  
+  var totalStock = total1 + total2;
+  document.getElementById("totalStock").innerHTML = "Diesel Stock: " + round(totalStock, 2);
+}
+
+function calculate(value1, value2, dieselValues) {
+  var total1 = dieselValues[value1] || 0;
+  var total2 = dieselValues[value2] || 0;
+  
+  return total1 + total2;
+}
+
+function round(value, decimals) {
+  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals).toFixed(decimals);
+}
+</script>
+</body>
+</html>

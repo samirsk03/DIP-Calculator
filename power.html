@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f7eaea; /* Light pink background color */
+    margin: 0;
+    padding: 0;
+  }
+  h1, h2 {
+    text-align: center;
+  }
+  h1 {
+    color: red; /* Red color for 'POWER DIP' */
+  }
+  section {
+    margin-bottom: 20px;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  input[type="number"] {
+    width: 80px;
+  }
+  .total {
+    font-weight: bold;
+  }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #ff4d4d; /* Nice red button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #ff3333; /* Darker red on hover */
+  }
+</style>
+</head>
+<body>
+  <section>
+    <h1>POWER DIP</h1>
+    <hr>
+    <ul>
+      <li>POWER TANK :-</li>
+    </ul>
+    <label for="firstInput">Values:</label>
+    <input type="number" id="firstInput" onchange="calculateTotal()">
+    +
+    <input type="number" id="secondInput" onchange="calculateTotal()">
+    <p id="result"></p>
+  </section>
+  
+  <section>
+    <h2>Power Stock</h2>
+    <p id="totalStock" class="total"></p>
+  </section>
+  <button onclick="window.location.href='Dip calculator.html'">Back to DIP CALCULATOR</button>
+
+<script>
+const POWER_VALUES = [0,5.9,16.3,29.9,45.6,63.6,83.4,104.8,127.8,152.2,
+177.9,204.9,233,262.3,292.6,323.9,356.3,389.5,
+428.7,435.7,484.6,531.2,568.6,606.6,645.8,
+685.4,725.7,766.7,808.8,850.5,893.4,926.8,
+980.8,1025.4,1070.5,1116.2,1162.2,1209,1256.2,
+1303.8,1352,1400.5,1449.5,1498.9,1548.9,1599.1,
+1649.7,1700.8,1752.2,1804,1856.1,1908.6,1961.4,
+2014.6,2068.1,2121.9,2176,2230.4,2295.1,2340,
+2395.3,2450.8,2506.5,2562.5,2618.8,2675.3,
+2732,2788.9,2846,2903.4,2960.9,3118.6,
+3076.5,3134.6,3192.9,3251.3,3309.9,3368.6,
+3427.4,3545.6,3604.8,3664.2,3723.7,3783.2,
+3842.9,3902.7,3962.6,4022.5,4082.5,4142.6,
+4202.7,4262.9,4323.2,4383.4,4443.8,4504.1,
+4564.5,4624.9,4685.3,4745.6,4806,4866.4,
+4926.8,4987.1,5047.5,5107.3,5168.1,5228.3,
+5288.5,5348.7,5408.7,5468.8,5528.7,5588.6,
+5648.3,5708,5767.6,5827.1,5886.4,5945.7,
+6004.9,6063.8,6122.7,6181.4,6240,6298.4,
+6356.6,6414.7,6472.6,6530.4,6587.9,6645.2,
+6702.4,6759.3,6816,6872.5,6928.7,6984.7,
+7040.5,7096,7151.2,7206.2,7260.9,7315.3,
+7369.4,7413.2,7476.7,7529.8,7582.8,7635.2,
+7687.3,7739.1,7790.5,7841.5,7892.2,7942.5,
+7992.3,8041.7,8090.7,8139.3,8187.4,8235.1,
+8282.2,8328.3,8375.1,8420.7,8465.8,8510.4,
+8544.4,8597.9,8640.7,8683,8724.5,8765.5,
+8806.9,8845.5,8884.4,8922.5,8960,8996.7,
+9032.5,9067.5,9101.7,9135,9167.3,9198.7,
+9229,9258.2,9286.4,9313.4,9339,9363.5,
+9386.5,9407.9,9427.7,9445.5,9461.4,9475,
+9485.4,9491.3
+];
+
+function calculateTotal() {
+  var firstInputValue = parseFloat(document.getElementById("firstInput").value);
+  var secondInputValue = parseFloat(document.getElementById("secondInput").value);
+  
+  var total = calculate(firstInputValue) + calculate(secondInputValue);
+  
+  document.getElementById("result").innerHTML = "Total: " + total;
+  
+  var roundedTotal = Math.round(total); 
+  document.getElementById("totalStock").innerHTML = "Power Stock: " + roundedTotal;
+}
+
+
+function calculate(value) {
+  return POWER_VALUES[value] || 0;
+}
+</script>
+</body>
+</html>
