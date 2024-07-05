@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petrol</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #e6f7ec;
+    margin: 0;
+    padding: 0;
+  }
+  h1, h2 {
+    text-align: center;
+    color: green;
+  }
+  section {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  input[type="number"] {
+    width: 80px;
+  }
+  .total {
+    font-weight: bold;
+  }
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+</style>
+</head>
+<body>
+  <section>
+    <h1>PETROL DIP</h1>
+    <hr>
+    <ul>
+      <li>TANK-1 :-</li>
+    </ul>
+    <label for="firstInput">Values:</label>
+    <input type="number" id="firstInput" onchange="calculateTotal()">
+    +
+    <input type="number" id="secondInput" onchange="calculateTotal()">
+    <p id="result"></p>
+  </section>
+  <section>
+    <ul>
+      <li>TANK-2 :-</li>
+    </ul>
+    <label for="thirdInput">Values:</label>
+    <input type="number" id="thirdInput" onchange="calculateTotal()">
+    +
+    <input type="number" id="fourthInput" onchange="calculateTotal()">
+    <p id="result2"></p>
+  </section>
+  
+
+  <section>
+    <h2>Total Stock</h2>
+    <p id="totalStock" class="total"></p>
+  </section>
+  <button onclick="window.location.href='Dip calculator.html'">Back to DIP CALCULATOR</button>
+<script>
+const PETROL_VALUES = [
+  0, 10, 27, 50, 76, 107, 140, 176, 215, 256, 
+  300, 345, 392, 442, 493, 546, 600, 657, 714, 
+  773, 834, 896, 959, 1023, 1089, 1156, 1224, 
+  1293, 1365, 1435, 1507, 1580, 1655, 1730, 1806, 
+  1883, 1961, 2040, 2120, 2200, 2281, 2363, 2446, 
+  2529, 2614, 2698, 2784, 2872, 2957, 3044, 3132,
+  3221, 3310, 3400, 3490, 3581, 3672, 3764, 3857, 
+  3949, 4043, 4136, 4230, 4325, 4420, 4515, 4611, 
+  4707, 4804, 4900, 4998, 5095, 5193, 5291, 5389, 
+  5488, 5587, 5686, 5785, 5885, 5985, 6085, 6186, 
+  6285, 6386, 6487, 6588, 6689, 6790, 6891, 6993, 
+  7094, 7196, 7298, 7399, 7501, 7603, 7703, 7807, 
+  7909, 8011, 8113, 8215, 8317, 8419, 8521, 8623, 
+  8724, 8826, 8928, 9029, 9131, 9232, 9333, 9434, 
+  9501, 9636, 9737, 9837, 9937, 10037, 10137, 10237, 
+  10336, 10435, 10534, 10633, 10731, 10829, 10927, 
+  11025, 11122, 11210, 11315, 11411, 11507, 11602, 
+  11697, 11792, 11886, 11979, 12073, 12166, 12258, 
+  12350, 12441, 12532, 12622, 12712, 12801, 12890, 
+  12978, 13065, 13152, 13238, 13324, 13409, 13493, 
+  13576, 13659, 13741, 13822, 13903, 13982, 14061, 
+  14139, 14216, 14292, 14367, 14442, 14515, 14587, 
+  14659, 14729, 14798, 14860, 14933, 14999, 15063, 
+  15126, 15188, 15249, 15308, 15366, 15422, 15476, 
+  15529, 15580, 15630, 15677, 15723, 15766, 15807, 
+  15846, 15882, 15915, 15946, 15972, 15995, 16013, 
+  16022
+];
+
+// Function to calculate total and update UI
+function calculateTotal() {
+  var firstInputValue = parseInt(document.getElementById("firstInput").value);
+  var secondInputValue = parseInt(document.getElementById("secondInput").value);
+  var thirdInputValue = parseInt(document.getElementById("thirdInput").value);
+  var fourthInputValue = parseInt(document.getElementById("fourthInput").value);
+  
+ var total1 = calculate(firstInputValue) + calculate(secondInputValue);
+  var total2 = calculate(thirdInputValue) + calculate(fourthInputValue);
+  
+  document.getElementById("result").innerHTML = "Total 1: " + total1;
+  document.getElementById("result2").innerHTML = "Total 2: " + total2;
+  
+  var totalStock = total1 + total2;
+  document.getElementById("totalStock").innerHTML = "Petrol Stock: " + totalStock;
+}
+
+// Function to calculate petrol value
+function calculate(value) {
+  return PETROL_VALUES[value] || 0;
+}
+
+// Initial calculation when page loads
+calculateTotal();
+</script>
+</body>
+</html>
